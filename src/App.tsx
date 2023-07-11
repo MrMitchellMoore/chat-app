@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { Navbar } from "./components/Navbar";
+import { Chat } from "./components/Chat";
 
 const style = {
   appContainer: `max-w-[1396px] mx-auto text-center`,
@@ -19,8 +20,9 @@ function App() {
       <section className={style.sectionContainer}>
         {/* Navbar */}
         <Navbar />
+        {/* Chat Component */}
+        <Chat />
       </section>
-      {/* Chat Component */}
     </div>
   );
 }
