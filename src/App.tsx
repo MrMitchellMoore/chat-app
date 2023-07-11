@@ -1,3 +1,5 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 import { Navbar } from "./components/Navbar";
 
 const style = {
@@ -6,6 +8,12 @@ const style = {
 };
 
 function App() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user.displayName + " " + user.uid + " is signed in");
+    }
+    console.log("User not signed in");
+  });
   return (
     <div className={style.appContainer}>
       <section className={style.sectionContainer}>
