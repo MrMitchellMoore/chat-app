@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Message } from "./Message";
 import {
   DocumentData,
@@ -11,15 +11,15 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { SendMessage } from "./SendMessage";
 
 const style = {
-  main: `flex flex-col p-[10px] relative`,
+  main: `flex flex-col p-[10px] h-[100%] w-full overflow-y-scroll`,
 };
 export function Chat() {
   const [messages, setMessages] = useState<
     QueryDocumentSnapshot<DocumentData, MessageType>[]
   >([]);
-  const scroll = useRef();
 
   useEffect(() => {
     const q = query(collection(db, "messages"), orderBy("timestamp"));
@@ -55,11 +55,12 @@ export function Chat() {
   return (
     <>
       <main className={style.main}>
-        {messages.map((m) => (
-          <Message key={m.id} message={m} />
-        ))}
+        {messages &&
+          messages.map((message) => (
+            <Message key={message.id} message={message} />
+          ))}
       </main>
-      <span ref={scroll.current}></span>
+      <SendMessage />
     </>
   );
 }
